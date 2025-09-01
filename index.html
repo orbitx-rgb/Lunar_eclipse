@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Lunar Eclipse: September 7, 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for dark theme and font */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            color: #d1d5db; /* Default light text (text-gray-300) */
+            overflow-x: hidden; /* Prevent scroll from star animations */
+        }
+        
+        /* Animated starry background CSS */
+        @keyframes move-twink-back {
+            from {background-position:0 0;}
+            to {background-position:-10000px 5000px;}
+        }
+        
+        #stars, #stars2, #stars3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 0;
+        }
+
+        #stars {
+            background: transparent url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+            animation: move-twink-back 200s linear infinite;
+        }
+
+        #stars2 {
+            background: transparent url('https://www.script-tutorials.com/demos/360/images/twinkling.png') repeat top center;
+            animation: move-twink-back 150s linear infinite;
+        }
+        
+        /* Tab styles for dark theme */
+        .tab-button {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            color: #9ca3af; /* text-gray-400 */
+        }
+        .tab-button.active {
+            border-bottom-color: #3b82f6; /* blue-500 */
+            color: #eff6ff; /* blue-50 */
+            font-weight: 600;
+        }
+        
+        /* Content visibility styles */
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        
+        /* Accordion (details) styles */
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary .arrow { transform: rotate(90deg); }
+        .arrow { transition: transform 0.2s ease-in-out; }
+        
+        /* Card styles with a "glassmorphism" effect */
+        .info-card {
+            background-color: rgba(30, 41, 59, 0.7); /* slate-800 with transparency */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        
+        /* Stat card styles for dark theme */
+        .stat-card {
+            background-color: rgba(51, 65, 85, 0.7); /* slate-700 with transparency */
+            border: 1px solid rgba(71, 85, 105, 0.7); /* slate-600 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        /* Table styles for dark theme */
+        .dark-table thead { background-color: rgba(51, 65, 85, 0.5); } /* slate-700 */
+        .dark-table tbody tr { border-color: rgba(71, 85, 105, 0.5); } /* slate-600 */
+        .dark-table .total-row { background-color: rgba(220, 38, 38, 0.1); } /* red-600/10% */
+        .dark-table .max-row { background-color: rgba(220, 38, 38, 0.2); } /* red-600/20% */
+        .dark-table .total-text { color: #f87171; } /* red-400 */
+        .dark-table .max-text { color: #fca5a5; } /* red-300 */
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Starry background layers -->
+    <div id="stars"></div>
+    <div id="stars2"></div>
+
+    <!-- Main content container, positioned above the stars -->
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl relative z-10">
+        <!-- Header Section -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-100">Total Lunar Eclipse</h1>
+            <p class="text-lg text-gray-400 mt-2">September 7, 2025</p>
+        </header>
+
+        <!-- Countdown Timer -->
+        <div id="countdown" class="text-center mb-12 text-white">
+            <h2 class="text-xl font-semibold mb-4 text-gray-300 tracking-wider">Eclipse Begins In</h2>
+            <div class="flex justify-center space-x-4 md:space-x-8 text-3xl md:text-5xl">
+                <div class="bg-black bg-opacity-20 p-4 rounded-lg min-w-[70px] md:min-w-[100px]"><span id="days" class="font-bold">00</span><div class="text-sm font-light mt-1">Days</div></div>
+                <div class="bg-black bg-opacity-20 p-4 rounded-lg min-w-[70px] md:min-w-[100px]"><span id="hours" class="font-bold">00</span><div class="text-sm font-light mt-1">Hours</div></div>
+                <div class="bg-black bg-opacity-20 p-4 rounded-lg min-w-[70px] md:min-w-[100px]"><span id="minutes" class="font-bold">00</span><div class="text-sm font-light mt-1">Minutes</div></div>
+                <div class="bg-black bg-opacity-20 p-4 rounded-lg min-w-[70px] md:min-w-[100px]"><span id="seconds" class="font-bold">00</span><div class="text-sm font-light mt-1">Seconds</div></div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="border-b border-gray-700 mb-8">
+            <nav class="flex flex-wrap -mb-px justify-center" aria-label="Tabs">
+                <button class="tab-button active text-lg py-4 px-6" data-tab="overview">Overview</button>
+                <button class="tab-button text-lg py-4 px-6" data-tab="visibility">Visibility</button>
+                <button class="tab-button text-lg py-4 px-6" data-tab="timeline">Timeline</button>
+                <button class="tab-button text-lg py-4 px-6" data-tab="details">Science & Details</button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Overview Tab Content -->
+            <section id="overview" class="content-section active animate-fade-in">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="info-card">
+                        <h2 class="text-2xl font-bold mb-4 text-blue-400">Eclipse Overview</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            The total lunar eclipse of September 7, 2025, is one of the year's most significant astronomical events. The Moon will pass deep into Earth's umbral shadow, creating an intensely red "Blood Moon" during the 82-minute totality phase. Occurring near perigee, the Moon will appear larger than average, enhancing the visual spectacle.
+                        </p>
+                    </div>
+                    <div class="info-card">
+                         <h2 class="text-2xl font-bold mb-4 text-blue-400">Key Statistics</h2>
+                         <div class="grid grid-cols-2 gap-4 text-gray-200">
+                            <div class="stat-card">
+                                <span class="text-sm text-gray-400">Umbral Magnitude</span>
+                                <p class="text-2xl font-semibold">1.3638</p>
+                            </div>
+                             <div class="stat-card">
+                                <span class="text-sm text-gray-400">Totality Duration</span>
+                                <p class="text-2xl font-semibold">82 mins</p>
+                            </div>
+                             <div class="stat-card">
+                                <span class="text-sm text-gray-400">Saros Cycle</span>
+                                <p class="text-2xl font-semibold">128</p>
+                            </div>
+                             <div class="stat-card">
+                                <span class="text-sm text-gray-400">Gamma</span>
+                                <p class="text-2xl font-semibold">-0.27521</p>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visibility Tab Content -->
+            <section id="visibility" class="content-section animate-fade-in">
+                <div class="info-card">
+                    <h2 class="text-2xl font-bold mb-6 text-center text-blue-400">Global Visibility</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Complete Visibility -->
+                        <div>
+                            <h3 class="font-semibold text-lg mb-2 text-green-400">Complete Visibility</h3>
+                            <p class="text-sm text-gray-400 mb-3">The entire eclipse is visible from start to finish.</p>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>Asia (India, China, SE Asia, Japan)</li>
+                                <li>Australia (especially Western)</li>
+                                <li>Eastern & Central Africa</li>
+                                <li>Antarctica</li>
+                            </ul>
+                        </div>
+                        <!-- Partial Visibility -->
+                        <div>
+                            <h3 class="font-semibold text-lg mb-2 text-yellow-400">Partial Visibility</h3>
+                            <p class="text-sm text-gray-400 mb-3">The Moon rises or sets during the eclipse.</p>
+                             <ul class="space-y-2 text-gray-300">
+                                <li>Europe (Moon rises during eclipse)</li>
+                                <li>Western Africa</li>
+                                <li>Atlantic Ocean regions</li>
+                            </ul>
+                        </div>
+                        <!-- Not Visible -->
+                        <div>
+                            <h3 class="font-semibold text-lg mb-2 text-red-400">Not Visible</h3>
+                            <p class="text-sm text-gray-400 mb-3">The eclipse occurs during local daylight hours.</p>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>North America</li>
+                                <li>South America</li>
+                                <li>Central America</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <details class="border-t border-gray-700 pt-4">
+                            <summary class="flex justify-between items-center font-medium text-gray-200">
+                                <span>European Partial Visibility Details</span>
+                                <svg class="arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </summary>
+                            <div class="mt-4 text-sm text-gray-400 space-y-2 pl-4">
+                                <p><strong>London:</strong> Moonrise at 19:30 BST, ~22 minutes of totality visible.</p>
+                                <p><strong>Paris:</strong> Moonrise at 19:42 CEST, ~10 minutes of totality visible.</p>
+                                <p><strong>Berlin:</strong> Moonrise at 19:35 CEST, ~17 minutes of totality visible.</p>
+                                <p><strong>Rome:</strong> Moonrise at 19:20 CEST, ~32 minutes of totality visible.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Tab Content -->
+            <section id="timeline" class="content-section animate-fade-in">
+                 <div class="info-card">
+                    <h2 class="text-2xl font-bold mb-6 text-center text-blue-400">Eclipse Timeline (UTC)</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left dark-table">
+                            <thead>
+                                <tr>
+                                    <th class="p-3 font-semibold">Phase</th>
+                                    <th class="p-3 font-semibold">UTC Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">Penumbral Eclipse Begins</td>
+                                    <td class="p-3">15:28:25</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Partial Eclipse Begins</td>
+                                    <td class="p-3">16:27:09</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td class="p-3 font-medium total-text">Total Eclipse Begins</td>
+                                    <td class="p-3 font-medium total-text">17:30:48</td>
+                                </tr>
+                                <tr class="max-row">
+                                    <td class="p-3 font-bold max-text">Maximum Eclipse</td>
+                                    <td class="p-3 font-bold max-text">18:11:47</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td class="p-3 font-medium total-text">Total Eclipse Ends</td>
+                                    <td class="p-3 font-medium total-text">18:52:51</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Partial Eclipse Ends</td>
+                                    <td class="p-3">19:56:31</td>
+                                </tr>
+                                 <tr>
+                                    <td class="p-3">Penumbral Eclipse Ends</td>
+                                    <td class="p-3">20:55:08</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <div class="mt-8 text-center text-gray-400">
+                         <p>Total Duration: <strong>5 hours, 26 minutes, 43 seconds</strong></p>
+                         <p>Totality Duration: <strong>1 hour, 22 minutes, 3 seconds</strong></p>
+                     </div>
+                </div>
+            </section>
+
+            <!-- Details Tab Content -->
+            <section id="details" class="content-section animate-fade-in">
+                 <div class="space-y-8">
+                     <div class="info-card">
+                        <h2 class="text-2xl font-bold mb-4 text-blue-400">The Science of a Blood Moon</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                           During a total lunar eclipse, Earth's atmosphere filters sunlight passing through it. It scatters blue light but allows red light to pass through and be refracted, or bent, toward the Moon. This effect, called <strong class="text-gray-100">Rayleigh scattering</strong>, is the same phenomenon that creates colorful sunrises and sunsets. The exact color of the eclipsed Moon—from bright orange to deep blood-red—depends on global atmospheric conditions like cloud cover and dust.
+                        </p>
+                    </div>
+                     <div class="info-card">
+                        <h2 class="text-2xl font-bold mb-4 text-blue-400">Global Impact & Photography</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2 text-gray-100">Population Impact</h3>
+                                <p class="text-gray-400">An estimated <strong class="text-gray-200">7.03 billion people</strong> (88% of the world's population) will be able to see at least a part of this eclipse, making it one of the most widely observable astronomical events in recent history.</p>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2 text-gray-100">Observation Tips</h3>
+                                <p class="text-gray-400">Unlike a solar eclipse, a lunar eclipse is perfectly safe to view without special eye protection. For the best experience, find a location away from city lights. Binoculars or a small telescope will reveal stunning surface details on the reddened Moon.</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching logic
+            const tabs = document.querySelectorAll('.tab-button');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => item.classList.remove('active'));
+                    contentSections.forEach(content => content.classList.remove('active'));
+                    const targetContent = document.getElementById(tab.getAttribute('data-tab'));
+                    tab.classList.add('active');
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+
+            // Countdown Timer Logic
+            // Set the date we're counting down to (Penumbral Eclipse Begins in UTC)
+            const countDownDate = new Date("Sep 7, 2025 15:28:25 UTC").getTime();
+
+            const countdownFunction = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Add leading zeros if number is less than 10
+                const format = (num) => num.toString().padStart(2, '0');
+
+                // Display the result in the elements
+                document.getElementById("days").innerText = format(days);
+                document.getElementById("hours").innerText = format(hours);
+                document.getElementById("minutes").innerText = format(minutes);
+                document.getElementById("seconds").innerText = format(seconds);
+
+                // If the count down is over, write some text
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById("countdown").innerHTML = `<h2 class="text-3xl font-bold text-green-400 animate-pulse">The Eclipse is Happening Now!</h2>`;
+                }
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
+
